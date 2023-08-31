@@ -1,26 +1,16 @@
-import sys
 import pygame
 
 class Stars:
-    """Overall class to represent stars and app attributes"""
-    def __init__(self):
-        """Initialize the app and create resources"""
-        pygame.init()
-        self.screen = pygame.display.set_mode((1280, 720))
+    """Class to represent a single star"""
+    def __init__(self, game):
+        """Set spawn point of the first star"""
+        self.screen = game.screen
+        
+        # Load the image.
+        self.image = pygame.image.load('star.bmp')
+        self.image = pygame.transform.scale(self.image, (20, 20))
+        self.rect = self.image.get_rect()
     
-    def run_app(self):
-        """Runs the app"""
-        while True:
-            self.screen.fill((0, 0, 30))
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    sys.exit()
-                if event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_q:
-                        sys.exit()
-
-            pygame.display.flip()
-
-if __name__ == '__main__':
-    starry = Stars()
-    starry.run_app()
+    def draw_star(self, x, y):
+        self.rect.topleft = (x, y)
+        self.screen.blit(self.image, self.rect)
